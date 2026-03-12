@@ -8,8 +8,10 @@ export interface ProjectFrontmatter {
   title: string;
   category: string;
   year: number;
-  projectType: "carousel" | "gallery";
-  images: string[];
+  projectType: "carousel" | "gallery" | "embed";
+  order?: number;
+  images?: string[];
+  embedUrl?: string;
 }
 
 export interface ProjectMeta extends ProjectFrontmatter {
@@ -23,12 +25,13 @@ export interface Project extends ProjectMeta {
 export function getAllProjects(): ProjectMeta[] {
   const files = fs.readdirSync(projectsDir).filter((f) => f.endsWith(".mdx"));
 
-  return files.map((filename) => {
+  const projects = files.map((filename) => {
     const slug = filename.replace(/\.mdx$/, "");
     const raw = fs.readFileSync(path.join(projectsDir, filename), "utf-8");
     const { data } = matter(raw);
     return { slug, ...(data as ProjectFrontmatter) };
   });
+  return projects.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 }
 
 export function getProjectBySlug(slug: string): Project {

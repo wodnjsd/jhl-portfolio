@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Anna Müller — Architect",
-  description: "Architecture portfolio of Anna Müller",
+  title: "Jang Hee Lee",
+  description: "Jang Hee Lee Portfolio",
 };
 
 export default function RootLayout({
@@ -13,7 +14,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="min-h-screen antialiased flex flex-col">
+        <Navbar />
+        <div className="flex-1 flex flex-col">{children}</div>
+      </body>
     </html>
   );
 }

@@ -1,14 +1,11 @@
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
 import { getAllProjects } from "@/lib/projects";
 
 export default function Home() {
   const projects = getAllProjects();
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-between">
-      <Navbar />
-
+    <main className="flex-1 flex flex-col items-center justify-center gap-20 -translate-y-12">
       <ul className="flex flex-col items-center gap-3">
         {projects.map((project) => (
           <li key={project.slug}>
@@ -22,7 +19,7 @@ export default function Home() {
         ))}
       </ul>
 
-      <nav className="flex gap-10 py-10">
+      <nav className="flex flex-col items-center gap-4">
         <Link
           href="/about"
           className="text-xs tracking-[0.2em] uppercase font-light hover:opacity-40 transition-opacity duration-300"

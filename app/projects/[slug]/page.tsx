@@ -1,6 +1,7 @@
 import { getAllProjects, getProjectBySlug } from "@/lib/projects";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import CarouselView from "@/components/CarouselView";
+import EmbedView from "@/components/EmbedView";
 import GalleryView from "@/components/GalleryView";
 import { notFound } from "next/navigation";
 
@@ -27,8 +28,15 @@ export default async function ProjectPage({ params }: Props) {
         title={project.title}
         category={project.category}
         year={project.year}
-        images={project.images}
+        images={project.images ?? []}
       />
+    );
+  }
+
+  if (project.projectType === "embed") {
+    if (!project.embedUrl) notFound();
+    return (
+      <EmbedView embedUrl={project.embedUrl} />
     );
   }
 
@@ -37,7 +45,7 @@ export default async function ProjectPage({ params }: Props) {
       title={project.title}
       category={project.category}
       year={project.year}
-      images={project.images}
+      images={project.images ?? []}
     >
       <MDXRemote source={project.content} />
     </CarouselView>
