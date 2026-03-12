@@ -31,14 +31,14 @@ export default function CarouselView({
 
   return (
     <div className="min-h-screen flex flex-col items-center">
-      <div className="w-full max-w-3xl px-6 pt-4 flex-1 flex flex-col">
+      <div className="w-full max-w-3xl px-9 pt-4 flex-1 flex flex-col">
         {/* page counter + arrows */}
-        <div className="flex justify-end items-start ">
-          <div className="flex flex-col items-end gap-2">
-            <span className="text-xs tracking-[0.15em] font-light tabular-nums">
+        <div className="flex justify-end items-start mb-8 -translate-y-12 sm:translate-0">
+          <div className="flex flex-col items-center gap-1 sm:gap-2">
+            <span className="text-xs tracking-[0.05em] font-light tabular-nums">
               {current + 1} / {totalSlides}
             </span>
-            <div className="flex gap-3">
+            <div className="flex gap-2 sm:gap-3">
               <button
                 onClick={prev}
                 aria-label="Previous slide"
@@ -59,8 +59,8 @@ export default function CarouselView({
 
         {/* slide content */}
         {current === 0 ? (
-          <div className="max-w-prose mx-auto flex flex-col items-center -translate-y-10">
-            <div className="w-full grid grid-cols-3 items-baseline mb-10">
+          <div className="max-w-prose mx-auto flex flex-col items-center -translate-y-18">
+            <div className="w-full grid grid-cols-3 items-baseline mb-8">
               <span className="text-xs tracking-[0.2em] uppercase font-light">
                 {category}
               </span>
