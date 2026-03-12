@@ -5,7 +5,7 @@ export default function Home() {
   const projects = getAllProjects();
 
   return (
-    <main className="flex-1 flex flex-col items-center justify-center gap-20 -translate-y-12">
+    <main className="flex-1 flex flex-col items-center justify-center gap-20">
       <ul className="flex flex-col items-center gap-3">
         {projects.map((project) => (
           <li key={project.slug}>

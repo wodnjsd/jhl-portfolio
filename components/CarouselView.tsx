@@ -72,7 +72,7 @@ export default function CarouselView({
               </span>
             </div>
 
-            <div className="w-full prose prose-sm prose-neutral font-light leading-relaxed tracking-wide">
+            <div className="w-full max-w-prose mx-auto prose-sm font-light leading-relaxed tracking-wide">
               {children}
             </div>
           </div>
