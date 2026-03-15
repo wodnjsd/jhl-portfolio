@@ -77,7 +77,7 @@ export default function CarouselView({
             </div>
           </div>
         ) : (
-          <div className="w-full max-w-prose prose prose-sm prose-neutral mx-auto [&_:first-child]:mt-0 [&_:last-child]:mb-0 -translate-y-9">
+          <div className="w-full max-w-prose prose prose-sm prose-neutral mx-auto [&_:first-child]:mt-0 [&_:last-child]:mb-0 -translate-y-17">
             <img
               src={images[current - 1]}
               alt={`${title} — image ${current}`}
