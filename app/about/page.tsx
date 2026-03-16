@@ -1,7 +1,7 @@
 export default function AboutPage() {
   return (
     <main className="flex-1 flex flex-col items-center justify-center">
-      <div className="max-w-prose px-6 flex flex-col gap-6 text-center">
+      <div className="max-w-xl px-6 flex flex-col gap-6 text-center">
         {/* <h1 className="text-xs tracking-[0.25em] uppercase font-light">About</h1> */}
         <p className="text-sm font-light tracking-wide text-neutral-700">
           Jang Hee Lee is an ARB-registered architect and researcher whose work explores
@@ -15,7 +15,7 @@ export default function AboutPage() {
         </p>
       </div>
 
-      <div className="py-10" />
+      <div className="py-16" />
     </main>
   );
 }

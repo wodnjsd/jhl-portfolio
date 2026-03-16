@@ -33,7 +33,7 @@ export default function CarouselView({
     <div className="min-h-screen flex flex-col items-center text-sm">
       <div className="w-full max-w-2xl px-9 flex-1 flex flex-col">
         {/* number (left) | content | arrows (right), equidistant gaps, top-aligned */}
-        <div className="flex items-start gap-8 mb-8">
+        <div className="flex items-start gap-8">
           <div className="shrink-0">
             <span className="font-light ">
               {current + 1} / {totalSlides}
@@ -42,7 +42,7 @@ export default function CarouselView({
           <div className="flex-1 min-w-0">
             {current === 0 ? (
               <div className="max-w-xl mx-auto flex flex-col items-center">
-                <div className="w-full grid grid-cols-3 items-baseline mb-8">
+                <div className="w-full grid grid-cols-3 items-baseline mb-5">
                   <span>
                     {category}
                   </span>
