@@ -33,7 +33,7 @@ export default function Home() {
           Contact
         </Link>
       </nav>
-      <div className="py-8" />
+      <div className="py-0 sm:py-8" />
     </main>
   );
 }

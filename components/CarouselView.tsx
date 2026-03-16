@@ -31,7 +31,7 @@ export default function CarouselView({
 
   return (
     <div className="min-h-screen flex flex-col items-center text-sm">
-      <div className="w-full max-w-2xl px-9 flex-1 flex flex-col">
+      <div className="w-full max-w-2xl px-6 flex-1 flex flex-col">
         {/* number (left) | content | arrows (right), equidistant gaps, top-aligned */}
         <div className="flex items-start gap-8">
           <div className="shrink-0">
