@@ -20,7 +20,7 @@ function soundcloudEmbedSrc(trackUrl: string): string {
 export default function EmbedView({ embedUrl }: Props) {
   return (
     <div className="w-full flex justify-center">
-      <div className="w-full max-w-prose prose-sm pt-10">
+      <div className="w-full max-w-xl">
         <div className="w-full aspect-video min-h-[166px] relative rounded-sm border border-neutral-200 bg-neutral-50 overflow-hidden">
         <iframe
           width="100%"

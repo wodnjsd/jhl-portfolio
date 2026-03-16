@@ -6,12 +6,12 @@ export default function Home() {
 
   return (
     <main className="flex-1 flex flex-col items-center justify-center gap-20">
-      <ul className="flex flex-col items-center gap-3">
+      <ul className="flex flex-col items-center gap-2">
         {projects.map((project) => (
           <li key={project.slug}>
             <Link
               href={`/projects/${project.slug}`}
-              className="text-xs tracking-[0.2em] uppercase font-light hover:opacity-40 transition-opacity duration-300"
+              className="text-sm tracking-wide  hover:opacity-60 transition-opacity duration-300"
             >
               {project.title}
             </Link>
@@ -19,16 +19,16 @@ export default function Home() {
         ))}
       </ul>
 
-      <nav className="flex flex-col items-center gap-4">
+      <nav className="flex flex-col items-center gap-2 ">
         <Link
           href="/about"
-          className="text-xs tracking-[0.2em] uppercase font-light hover:opacity-40 transition-opacity duration-300"
+          className="text-sm tracking-wide hover:opacity-60 transition-opacity duration-300"
         >
           About
         </Link>
         <Link
           href="/contact"
-          className="text-xs tracking-[0.2em] uppercase font-light hover:opacity-40 transition-opacity duration-300"
+          className="text-sm tracking-wide hover:opacity-40 transition-opacity duration-300"
         >
           Contact
         </Link>

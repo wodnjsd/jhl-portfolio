@@ -2,10 +2,10 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="w-full flex justify-center pt-14 pb-8">
+    <nav className="w-full flex justify-center py-14">
       <Link
         href="/"
-        className="text-sm tracking-[0.25em] uppercase font-light hover:opacity-50 transition-opacity duration-300"
+        className="text-sm tracking-wider uppercase hover:opacity-60 transition-opacity duration-300"
       >
         JANG HEE LEE
       </Link>
