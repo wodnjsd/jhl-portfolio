@@ -128,7 +128,7 @@ export default function CarouselView({
     );
 
   return (
-    <div className="min-h-screen flex flex-col items-center text-sm">
+    <div className="flex w-full min-h-0 flex-1 flex-col items-center text-sm">
       <div className="w-full max-w-2xl px-6 flex-1 flex flex-col">
         {/* Mobile: full-width content; swipe on whole area; side tap zones overlaid */}
         <div
