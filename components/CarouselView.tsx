@@ -21,15 +21,23 @@ export default function CarouselView({
 }: Props) {
   const totalSlides = 1 + images.length;
   const [current, setCurrent] = useState(0);
+  const [slideEnterFrom, setSlideEnterFrom] = useState<"next" | "prev">("next");
+  const [slideAnimEnabled, setSlideAnimEnabled] = useState(false);
 
-  const prev = useCallback(
-    () => setCurrent((c) => (c - 1 + totalSlides) % totalSlides),
-    [totalSlides]
-  );
-  const next = useCallback(
-    () => setCurrent((c) => (c + 1) % totalSlides),
-    [totalSlides]
-  );
+  const goPrev = useCallback(() => {
+    setSlideAnimEnabled(true);
+    setSlideEnterFrom("prev");
+    setCurrent((c) => (c - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
+
+  const goNext = useCallback(() => {
+    setSlideAnimEnabled(true);
+    setSlideEnterFrom("next");
+    setCurrent((c) => (c + 1) % totalSlides);
+  }, [totalSlides]);
+
+  const prev = goPrev;
+  const next = goNext;
 
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
@@ -48,10 +56,10 @@ export default function CarouselView({
       touchStartY.current = null;
       if (Math.abs(dx) < SWIPE_MIN_PX) return;
       if (Math.abs(dy) >= Math.abs(dx)) return;
-      if (dx < 0) next();
-      else prev();
+      if (dx < 0) goNext();
+      else goPrev();
     },
-    [next, prev]
+    [goNext, goPrev]
   );
 
   const counter = (
@@ -128,9 +136,20 @@ export default function CarouselView({
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
-          <div className="relative z-0 flex w-full min-h-0 flex-col">
+          <div className="relative z-0 flex w-full min-h-0 flex-col overflow-x-hidden">
             <div className="text-left mb-3">{counter}</div>
-            {mobileSlideContent}
+            <div
+              key={current}
+              className={
+                !slideAnimEnabled
+                  ? undefined
+                  : slideEnterFrom === "next"
+                    ? "animate-mobile-slide-in-next"
+                    : "animate-mobile-slide-in-prev"
+              }
+            >
+              {mobileSlideContent}
+            </div>
           </div>
           <button
             type="button"

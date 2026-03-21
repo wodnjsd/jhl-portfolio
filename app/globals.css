@@ -11,3 +11,41 @@ body {
   color: var(--foreground);
   font-family: "Times New Roman", Times, serif;
 }
+
+/* Mobile carousel: slide-in when changing slides */
+@keyframes mobile-slide-in-next {
+  from {
+    transform: translateX(100%);
+    opacity: 0.92;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes mobile-slide-in-prev {
+  from {
+    transform: translateX(-100%);
+    opacity: 0.92;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-mobile-slide-in-next {
+  animation: mobile-slide-in-next 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-mobile-slide-in-prev {
+  animation: mobile-slide-in-prev 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-mobile-slide-in-next,
+  .animate-mobile-slide-in-prev {
+    animation: none;
+  }
+}
