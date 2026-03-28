@@ -21,23 +21,15 @@ export default function CarouselView({
 }: Props) {
   const totalSlides = 1 + images.length;
   const [current, setCurrent] = useState(0);
-  const [slideEnterFrom, setSlideEnterFrom] = useState<"next" | "prev">("next");
-  const [slideAnimEnabled, setSlideAnimEnabled] = useState(false);
 
-  const goPrev = useCallback(() => {
-    setSlideAnimEnabled(true);
-    setSlideEnterFrom("prev");
-    setCurrent((c) => (c - 1 + totalSlides) % totalSlides);
-  }, [totalSlides]);
-
-  const goNext = useCallback(() => {
-    setSlideAnimEnabled(true);
-    setSlideEnterFrom("next");
-    setCurrent((c) => (c + 1) % totalSlides);
-  }, [totalSlides]);
-
-  const prev = goPrev;
-  const next = goNext;
+  const prev = useCallback(
+    () => setCurrent((c) => (c - 1 + totalSlides) % totalSlides),
+    [totalSlides]
+  );
+  const next = useCallback(
+    () => setCurrent((c) => (c + 1) % totalSlides),
+    [totalSlides]
+  );
 
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
@@ -56,10 +48,10 @@ export default function CarouselView({
       touchStartY.current = null;
       if (Math.abs(dx) < SWIPE_MIN_PX) return;
       if (Math.abs(dy) >= Math.abs(dx)) return;
-      if (dx < 0) goNext();
-      else goPrev();
+      if (dx < 0) next();
+      else prev();
     },
-    [goNext, goPrev]
+    [next, prev]
   );
 
   const counter = (
@@ -136,20 +128,12 @@ export default function CarouselView({
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
-          <div className="relative z-0 flex w-full min-h-0 flex-col overflow-x-hidden">
-            <div className="text-left mb-3">{counter}</div>
-            <div
-              key={current}
-              className={
-                !slideAnimEnabled
-                  ? undefined
-                  : slideEnterFrom === "next"
-                    ? "animate-mobile-slide-in-next"
-                    : "animate-mobile-slide-in-prev"
-              }
-            >
-              {mobileSlideContent}
+          <div className="relative z-0 flex w-full min-h-0 flex-col">
+            {/* Counter above the header row in the viewport: out of flow so header aligns with desktop middle column top */}
+            <div className="pointer-events-none absolute inset-x-0 bottom-full mb-2 w-full text-left">
+              {counter}
             </div>
+            {mobileSlideContent}
           </div>
           <button
             type="button"
