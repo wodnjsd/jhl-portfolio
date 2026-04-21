@@ -27,6 +27,7 @@ export default async function ProjectPage({ params }: Props) {
       <GalleryView
         title={project.title}
         category={project.category}
+        location={project.location}
         year={project.year}
         images={project.images ?? []}
       />
@@ -44,8 +45,12 @@ export default async function ProjectPage({ params }: Props) {
     <CarouselView
       title={project.title}
       category={project.category}
+      location={project.location}
       year={project.year}
       images={project.images ?? []}
+      endChildren={
+        project.endContent ? <MDXRemote source={project.endContent} /> : undefined
+      }
     >
       <MDXRemote source={project.content} />
     </CarouselView>

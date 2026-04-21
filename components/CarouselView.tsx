@@ -5,9 +5,11 @@ import { useState, useCallback, useRef } from "react";
 interface Props {
   title: string;
   category: string;
+  location: string;
   year: number;
   images: string[];
   children: React.ReactNode;
+  endChildren?: React.ReactNode;
 }
 
 const SWIPE_MIN_PX = 50;
@@ -15,11 +17,14 @@ const SWIPE_MIN_PX = 50;
 export default function CarouselView({
   title,
   category,
+  location,
   year,
   images,
   children,
+  endChildren,
 }: Props) {
-  const totalSlides = 1 + images.length;
+  const hasEndSlide = endChildren !== undefined && endChildren !== null;
+  const totalSlides = 1 + images.length + (hasEndSlide ? 1 : 0);
   const [current, setCurrent] = useState(0);
 
   const prev = useCallback(
@@ -55,15 +60,15 @@ export default function CarouselView({
   );
 
   const counter = (
-    <span className="font-light tabular-nums">
-      {current + 1} / {totalSlides}
+    <span>
+      {current + 1}/{totalSlides}
     </span>
   );
 
   const headerRow = (
-    <div className="w-full grid grid-cols-3 items-baseline mb-5">
+    <div className="w-full grid grid-cols-3 items-baseline mb-4">
       <span>{category}</span>
-      <h1 className="text-center">{title}</h1>
+      <h1 className="text-center">{location}</h1>
       <span className="text-right">{year}</span>
     </div>
   );
@@ -87,40 +92,50 @@ export default function CarouselView({
     </div>
   );
 
-  const slideBody =
-    current === 0 ? (
-      <div className="w-full sm:max-w-xl sm:mx-auto flex flex-col items-stretch sm:items-center">
-        {headerRow}
-        <div className="w-full">{children}</div>
-      </div>
-    ) : (
-      <div className="w-full">
-        <img
-          src={images[current - 1]}
-          alt={`${title} — image ${current}`}
-          className="w-full h-auto block"
-        />
-      </div>
-    );
+  const isIntroSlide = current === 0;
+  const isEndSlide = hasEndSlide && current === totalSlides - 1;
+  const imageIndex = current - 1;
 
-  const mobileSlideContent =
-    current === 0 ? (
-      <>
-        {headerRow}
-        <div className="w-full">{children}</div>
-      </>
-    ) : (
-      <div className="w-full">
-        <img
-          src={images[current - 1]}
-          alt={`${title} — image ${current}`}
-          className="w-full h-auto block"
-        />
-      </div>
-    );
+  const slideBody = isIntroSlide ? (
+    <div className="w-full sm:max-w-xl sm:mx-auto flex flex-col items-stretch sm:items-center">
+      {headerRow}
+      <div className="w-full">{children}</div>
+    </div>
+  ) : isEndSlide ? (
+    <div className="w-full sm:max-w-xl sm:mx-auto flex flex-col items-stretch sm:items-center">
+      <div className="w-full">{endChildren}</div>
+    </div>
+  ) : (
+    <div className="w-full">
+      <img
+        src={images[imageIndex]}
+        alt={`${title} — image ${current}`}
+        className="w-full h-auto block"
+      />
+    </div>
+  );
+
+  const mobileSlideContent = isIntroSlide ? (
+    <>
+      {headerRow}
+      <div className="w-full">{children}</div>
+    </>
+  ) : isEndSlide ? (
+    <>
+      <div className="w-full">{endChildren}</div>
+    </>
+  ) : (
+    <div className="w-full">
+      <img
+        src={images[imageIndex]}
+        alt={`${title} — image ${current}`}
+        className="w-full h-auto block"
+      />
+    </div>
+  );
 
   return (
-    <div className="flex w-full min-h-0 flex-1 flex-col items-center text-sm">
+    <div className="flex w-full min-h-0 flex-1 flex-col items-center text-sm/tight">
       <div className="w-full max-w-2xl px-6 flex-1 flex flex-col">
         {/* Mobile: full-width content; swipe on whole area; side tap zones overlaid */}
         <div
@@ -152,7 +167,7 @@ export default function CarouselView({
         {/* Desktop: number | content | arrows */}
         <div className="hidden sm:flex items-start gap-8">
           <div className="shrink-0">{counter}</div>
-          <div className="flex-1 min-w-0">{slideBody}</div>
+          <div className="flex-1 min-w-0 text-justify">{slideBody}</div>
           {arrows}
         </div>
       </div>

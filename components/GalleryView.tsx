@@ -1,11 +1,12 @@
 interface Props {
   title: string;
   category: string;
+  location: string;
   year: number;
   images: string[];
 }
 
-export default function GalleryView({ title, category, year, images }: Props) {
+export default function GalleryView({ title, category, location, year, images }: Props) {
   return (
     <div className="flex flex-col items-center px-6">
       <div className="w-full max-w-xl grid grid-cols-3 items-baseline mb-5 text-sm">
@@ -13,7 +14,7 @@ export default function GalleryView({ title, category, year, images }: Props) {
           {category}
         </span>
         <h1 className="text-center">
-          {title}
+          {location}
         </h1>
         <span className="text-right">
           {year}

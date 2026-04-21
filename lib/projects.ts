@@ -7,6 +7,7 @@ const projectsDir = path.join(process.cwd(), "content", "projects");
 export interface ProjectFrontmatter {
   title: string;
   category: string;
+  location: string;
   year: number;
   projectType: "carousel" | "gallery" | "embed";
   order?: number;
@@ -20,7 +21,10 @@ export interface ProjectMeta extends ProjectFrontmatter {
 
 export interface Project extends ProjectMeta {
   content: string;
+  endContent?: string;
 }
+
+const END_SLIDE_MARKER = "<!-- end-slide -->";
 
 export function getAllProjects(): ProjectMeta[] {
   const files = fs.readdirSync(projectsDir).filter((f) => f.endsWith(".mdx"));
@@ -38,5 +42,13 @@ export function getProjectBySlug(slug: string): Project {
   const filepath = path.join(projectsDir, `${slug}.mdx`);
   const raw = fs.readFileSync(filepath, "utf-8");
   const { data, content } = matter(raw);
-  return { slug, ...(data as ProjectFrontmatter), content };
+
+  const [main, end] = content.split(END_SLIDE_MARKER);
+  const endContent = end?.trim() ? end.trim() : undefined;
+  return {
+    slug,
+    ...(data as ProjectFrontmatter),
+    content: main.trim(),
+    endContent,
+  };
 }
