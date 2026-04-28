@@ -66,7 +66,7 @@ export default function CarouselView({
   );
 
   const headerRow = (
-    <div className="w-full grid grid-cols-3 items-baseline mb-4">
+    <div className="w-full flex justify-between gap-4 items-baseline mb-4">
       <span>{category}</span>
       <h1 className="text-center">{location}</h1>
       <span className="text-right">{year}</span>
